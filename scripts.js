@@ -23,25 +23,23 @@ function fetchSheetData(url, callback) {
  */
 function renderGraph(data) {
   const elements = [];
-
   const nodeIds = new Set();
 
-  // Add nodes
+  // Add nodes without parent reference (to prevent compound rendering)
   data.forEach(row => {
     const id = row.ID || '';
     const label = row.Label || id;
-    const parent = row.Parent || null;
     const size = parseInt(row.Size) || 60;
     const color = row.Color || '#888';
 
     nodeIds.add(id);
 
     elements.push({
-      data: { id, label, parent, size, color }
+      data: { id, label, size, color }
     });
   });
 
-  // Add edges
+  // Add edges based on Parent column
   data.forEach(row => {
     if (row.Parent && nodeIds.has(row.Parent)) {
       elements.push({
@@ -71,14 +69,6 @@ function renderGraph(data) {
           'color': '#fff',
           'font-size': '12px',
           'overlay-opacity': 0
-        }
-      },
-      {
-        selector: 'node:parent',
-        style: {
-          'shape': 'ellipse',
-          'background-opacity': 0, // make invisible if you want
-          'border-width': 0
         }
       },
       {
