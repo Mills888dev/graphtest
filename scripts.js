@@ -55,30 +55,37 @@ function renderGraph(data) {
     container: document.getElementById('cy'),
     elements: elements,
     style: [
-      {
-        selector: 'node',
-        style: {
-          'shape': 'ellipse',
-          'background-color': 'data(color)',
-          'width': 'data(size)',
-          'height': 'data(size)',
-          'label': 'data(label)',
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'color': '#fff',
-          'font-size': '12px'
-        }
-      },
-      {
-        selector: 'edge',
-        style: {
-          'width': 2,
-          'line-color': '#555',
-          'target-arrow-color': '#555',
-          'target-arrow-shape': 'triangle'
-        }
-      }
-    ],
+  {
+    selector: 'node',
+    style: {
+      'shape': 'ellipse',
+      'background-color': 'data(color)',
+      'width': 'data(size)',
+      'height': 'data(size)',
+      'label': 'data(label)',
+      'text-valign': 'center',
+      'text-halign': 'center',
+      'color': '#fff',
+      'font-size': '12px'
+    }
+  },
+  {
+    selector: 'node:parent',
+    style: {
+      'shape': 'ellipse' // Fix for root shape
+    }
+  },
+  {
+    selector: 'edge',
+    style: {
+      'width': 2,
+      'line-color': '#555',
+      'target-arrow-color': '#555',
+      'target-arrow-shape': 'triangle'
+    }
+  }
+]
+,
     layout: {
       name: 'circle',
       padding: 10
