@@ -25,7 +25,7 @@ function renderGraph(data) {
   const elements = [];
   const nodeIds = new Set();
 
-  // Add nodes without parent reference (to prevent compound rendering)
+  // Add nodes (all circular, no compound/parent structure)
   data.forEach(row => {
     const id = row.ID || '';
     const label = row.Label || id;
@@ -39,7 +39,7 @@ function renderGraph(data) {
     });
   });
 
-  // Add edges based on Parent column
+  // Add edges (connections only, no parenting)
   data.forEach(row => {
     if (row.Parent && nodeIds.has(row.Parent)) {
       elements.push({
@@ -67,16 +67,15 @@ function renderGraph(data) {
           'text-valign': 'center',
           'text-halign': 'center',
           'color': '#fff',
-          'font-size': '12px',
-          'overlay-opacity': 0
+          'font-size': '12px'
         }
       },
       {
         selector: 'edge',
         style: {
           'width': 2,
-          'line-color': '#666',
-          'target-arrow-color': '#666',
+          'line-color': '#aaa',
+          'target-arrow-color': '#aaa',
           'target-arrow-shape': 'triangle',
           'curve-style': 'bezier'
         }
@@ -90,10 +89,9 @@ function renderGraph(data) {
   });
 }
 
-// 🔗 Your published Google Sheet CSV URL
+// 🔗 CSV from your public Google Sheet
 const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3eZlY581bQHv8_mK9eCmPwwJgrbTTXC9a1K7o5h_yN6jfWgI6ul_pWH-XPlItITXj1V1IXdJJL0k0/pub?gid=0&single=true&output=csv";
 
-// Fetch and render the graph
 window.onload = () => {
   fetchSheetData(sheetURL, renderGraph);
 };
