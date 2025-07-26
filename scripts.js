@@ -1,7 +1,7 @@
 /**
- * Fetches CSV from Google Sheets and parses to JSON.
- * @param {string} url - Published CSV URL
- * @param {function} callback - Function to handle parsed data
+ * Fetches CSV data from a Google Sheet and parses it into JSON.
+ * @param {string} url - The published CSV URL of the Google Sheet.
+ * @param {function} callback - The function to call with the parsed data.
  */
 function fetchSheetData(url, callback) {
   fetch(url)
@@ -18,31 +18,35 @@ function fetchSheetData(url, callback) {
 }
 
 /**
- * Renders the Cytoscape graph using parsed sheet data.
- * @param {Array} data - Parsed sheet rows
+ * Builds and displays the Cytoscape graph using sheet data.
+ * @param {Array} data - Parsed array of node objects from the sheet.
  */
 function renderGraph(data) {
   const elements = [];
 
-  // Create nodes
+  const nodeIds = new Set();
+
+  // Add nodes
   data.forEach(row => {
+    const id = row.ID || '';
+    const label = row.Label || id;
+    const parent = row.Parent || null;
+    const size = parseInt(row.Size) || 60;
+    const color = row.Color || '#888';
+
+    nodeIds.add(id);
+
     elements.push({
-      data: {
-        id: row.ID,
-        label: row.Label,
-        parent: row.Parent || null,
-        size: parseInt(row.Size) || 60,
-        color: row.Color || "#888"
-      }
+      data: { id, label, parent, size, color }
     });
   });
 
-  // Create edges
+  // Add edges
   data.forEach(row => {
-    if (row.Parent) {
+    if (row.Parent && nodeIds.has(row.Parent)) {
       elements.push({
         data: {
-          id: `${row.Parent}-${row.ID}`,
+          id: `${row.Parent}->${row.ID}`,
           source: row.Parent,
           target: row.ID
         }
@@ -50,53 +54,56 @@ function renderGraph(data) {
     }
   });
 
-  // Initialize Cytoscape
   const cy = cytoscape({
     container: document.getElementById('cy'),
     elements: elements,
     style: [
-  {
-    selector: 'node',
-    style: {
-      'shape': 'ellipse',
-      'background-color': 'data(color)',
-      'width': 'data(size)',
-      'height': 'data(size)',
-      'label': 'data(label)',
-      'text-valign': 'center',
-      'text-halign': 'center',
-      'color': '#fff',
-      'font-size': '12px'
-    }
-  },
-  {
-    selector: 'node:parent',
-    style: {
-      'shape': 'ellipse' // Fix for root shape
-    }
-  },
-  {
-    selector: 'edge',
-    style: {
-      'width': 2,
-      'line-color': '#555',
-      'target-arrow-color': '#555',
-      'target-arrow-shape': 'triangle'
-    }
-  }
-]
-,
+      {
+        selector: 'node',
+        style: {
+          'shape': 'ellipse',
+          'background-color': 'data(color)',
+          'width': 'data(size)',
+          'height': 'data(size)',
+          'label': 'data(label)',
+          'text-valign': 'center',
+          'text-halign': 'center',
+          'color': '#fff',
+          'font-size': '12px',
+          'overlay-opacity': 0
+        }
+      },
+      {
+        selector: 'node:parent',
+        style: {
+          'shape': 'ellipse',
+          'background-opacity': 0, // make invisible if you want
+          'border-width': 0
+        }
+      },
+      {
+        selector: 'edge',
+        style: {
+          'width': 2,
+          'line-color': '#666',
+          'target-arrow-color': '#666',
+          'target-arrow-shape': 'triangle',
+          'curve-style': 'bezier'
+        }
+      }
+    ],
     layout: {
       name: 'circle',
-      padding: 10
+      padding: 10,
+      avoidOverlap: true
     }
   });
 }
 
-// 🔗 PUBLIC Google Sheet published as CSV
+// 🔗 Your published Google Sheet CSV URL
 const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3eZlY581bQHv8_mK9eCmPwwJgrbTTXC9a1K7o5h_yN6jfWgI6ul_pWH-XPlItITXj1V1IXdJJL0k0/pub?gid=0&single=true&output=csv";
 
-// Start render
+// Fetch and render the graph
 window.onload = () => {
   fetchSheetData(sheetURL, renderGraph);
 };
