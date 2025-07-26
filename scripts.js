@@ -1,7 +1,7 @@
 // Setup Tabletop.js to fetch Google Sheets data
 window.onload = function() {
   Tabletop.init({
-    key: 'https://docs.google.com/spreadsheets/d/18ai-9n8gJz9X79aw2Wq7UndpzYFDksJtpyFb7PuU11I/edit?usp=sharing', // Mock Google Sheet URL
+    key: 'https://docs.google.com/spreadsheets/d/18ai-9n8gJz9X79aw2Wq7UndpzYFDksJtpyFb7PuU11I', // Mock Google Sheet URL
     simpleSheet: true,
     callback: function(data) {
       console.log(data);  // Log the data fetched
