@@ -1,21 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Spiderweb Diagram</title>
-  <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.32.1/dist/cytoscape.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tabletop@1.6.3/src/tabletop.min.js"></script>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clustered Network Graph</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.22.1/dist/cytoscape.min.js"></script>
+  <script src="scripts.js" defer></script>
 </head>
 <body>
-  <h1>Spiderweb Diagram</h1>
-  <div id="cy"></div>
-
-  <script src="scripts.js"></script>
-</body>
-  <body>
-  <div id="controls" style="position:absolute; top:10px; left:10px; z-index:10;">
+  <div id="controls">
     <button onclick="refreshGraph()">🔄 Refresh Graph</button>
   </div>
   <div id="cy"></div>
