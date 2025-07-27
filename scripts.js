@@ -112,6 +112,10 @@ function renderGraph(data) {
 // 🔗 Your public Google Sheet (must include 'Type' column)
 const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3eZlY581bQHv8_mK9eCmPwwJgrbTTXC9a1K7o5h_yN6jfWgI6ul_pWH-XPlItITXj1V1IXdJJL0k0/pub?gid=0&single=true&output=csv";
 
-window.onload = () => {
+function refreshGraph() {
+  document.getElementById('cy').innerHTML = ''; // Clear old graph
   fetchSheetData(sheetURL, renderGraph);
-};
+}
+
+window.onload = refreshGraph;
+
