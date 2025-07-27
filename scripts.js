@@ -86,6 +86,7 @@ function renderGraph(data) {
       name: 'cose',
       animate: true, 
       padding: 30,
+      animate: 'end', 
       fit: true
     }
   });
