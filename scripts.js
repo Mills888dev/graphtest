@@ -86,12 +86,15 @@ function renderGraph(data) {
       }
     ],
     layout: {
-      name: 'concentric',
-      concentric: node => (node.data('id') === 'root' ? 3 : 2),
-      levelWidth: () => 1,
-      spacingFactor: 1.8,
-      padding: 10
-    }
+  name: 'breadthfirst',
+  directed: true,
+  padding: 10,
+  spacingFactor: 1.5,
+  animate: true,
+  avoidOverlap: true,
+  roots: ['root']
+}
+
   });
 
   // Optional: show Type on hover
