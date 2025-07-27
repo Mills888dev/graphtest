@@ -84,7 +84,7 @@ function renderGraph(data) {
     ],
     layout: {
       name: 'cose',
-      animate: true,
+      animate: true, 
       padding: 30,
       fit: true
     }
