@@ -1,6 +1,5 @@
-
-function fetchSheetData(url, callback) {
-  fetch(url)
+function fetchSheetData(callback) {
+  fetch('hierarchical_network_sheet.csv')
     .then(res => res.text())
     .then(csv => {
       const lines = csv.trim().split('\n');
@@ -14,17 +13,6 @@ function fetchSheetData(url, callback) {
 }
 
 function renderGraph(data) {
-  const typeColors = {
-    "Board": "#8E24AA",
-    "Donor": "#3949AB",
-    "Partner": "#039BE5",
-    "Faculty/Staff": "#43A047",
-    "Student/Alumni": "#FB8C00",
-    "Parent": "#FDD835",
-    "Other": "#78909C",
-    "Central": "#E53935"
-  };
-
   const elements = [];
   const nodeIds = new Set();
 
@@ -32,10 +20,11 @@ function renderGraph(data) {
     const id = row.ID || '';
     const label = row.Label || id;
     const size = parseInt(row.Size) || 60;
-    const type = row.Type || "Other";
-    const color = row.Color || typeColors[type] || "#888";
+    const color = row.Color || '#888';
+    const type = row.Type || 'Other';
 
     nodeIds.add(id);
+
     elements.push({
       data: { id, label, size, color, type }
     });
@@ -82,21 +71,17 @@ function renderGraph(data) {
         }
       }
     ],
-  layout: {
-  name: 'breadthfirst',
-  directed: true,
-  padding: 30,
-  spacingFactor: 1.75,
-  avoidOverlap: true,
-  roots: ['root']
-}
+    layout: {
+      name: 'cose',
+      animate: false,
+      padding: 30
+    }
   });
 }
 
 function refreshGraph() {
-  const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3eZlY581bQHv8_mK9eCmPwwJgrbTTXC9a1K7o5h_yN6jfWgI6ul_pWH-XPlItITXj1V1IXdJJL0k0/pub?output=csv";
   document.getElementById('cy').innerHTML = '';
-  fetchSheetData(sheetURL, renderGraph);
+  fetchSheetData(renderGraph);
 }
 
 window.onload = refreshGraph;
