@@ -72,9 +72,12 @@ function renderGraph(data) {
       }
     ],
     layout: {
-      name: 'cose',
-      animate: false,
-      padding: 30
+  name: 'breadthfirst',
+  directed: true,
+  padding: 30,
+  spacingFactor: 1.75,
+  avoidOverlap: true,
+  roots: ['root']
     }
   });
 }
