@@ -1,17 +1,16 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #121212;
-  color: #fff;
-  text-align: center;
+html, body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  color: #fff;
+  font-family: sans-serif;
+  overflow: hidden;
 }
 
 #cy {
-  width: 100%;
-  height: 80vh;
-  margin: 0 auto;
-  border: 2px solid #fff;
-  border-radius: 10px;
+  width: 100vw;
+  height: 100vh;
+  display: block;
 }
-
