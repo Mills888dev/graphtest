@@ -82,12 +82,14 @@ function renderGraph(data) {
         }
       }
     ],
-    layout: {
-      name: 'cose',
-      animate: true,
-      padding: 30,
-      fit: true
-    }
+  layout: {
+  name: 'breadthfirst',
+  directed: true,
+  padding: 30,
+  spacingFactor: 1.75,
+  avoidOverlap: true,
+  roots: ['root']
+}
   });
 }
 
