@@ -88,19 +88,19 @@ function renderGraph(data) {
       padding: 30,
       animate: 'end', 
       fit: true
-            ready: function() {
-        if (rootNode) {
-          const rootNodeElement = cy.getElementById(rootNode.id);
-          // Manually set root node position to the center
-          rootNodeElement.position({ x: cy.width() / 2, y: cy.height() / 2 });
-        }
-      }
+
     },
     autoungrabify: true,
     userPanningEnabled: false,
     userZoomingEnabled: false,
     boxSelectionEnabled: false
   });
+  cy.ready(() => {
+  const rootNode = roots[0];
+  if (rootNode) {
+    cy.center(cy.getElementById(rootNode));
+  }
+});
 }
 
 });
