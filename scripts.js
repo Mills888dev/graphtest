@@ -88,6 +88,13 @@ function renderGraph(data) {
       padding: 30,
       animate: 'end', 
       fit: true
+            ready: function() {
+        if (rootNode) {
+          const rootNodeElement = cy.getElementById(rootNode.id);
+          // Manually set root node position to the center
+          rootNodeElement.position({ x: cy.width() / 2, y: cy.height() / 2 });
+        }
+      }
     },
     autoungrabify: true,
     userPanningEnabled: false,
@@ -95,11 +102,7 @@ function renderGraph(data) {
     boxSelectionEnabled: false
   });
 }
-cy.ready(() => {
-  const rootNode = roots[0];
-  if (rootNode) {
-    cy.center(cy.getElementById(rootNode));
-  }
+
 });
 function refreshGraph() {
   const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3eZlY581bQHv8_mK9eCmPwwJgrbTTXC9a1K7o5h_yN6jfWgI6ul_pWH-XPlItITXj1V1IXdJJL0k0/pub?output=csv";
