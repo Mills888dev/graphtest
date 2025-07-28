@@ -1,12 +1,10 @@
-// 🔗 Replace with your published Google Sheet CSV URL
-const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3eZlY581bQHv8_mK9eCmPwwJgrbTTXC9a1K7o5h_yN6jfWgI6ul_pWH-XPlItITXj1V1IXdJJL0k0/pub?gid=0&single=true&output=csv";
 
 function fetchSheetData(callback) {
-  fetch(sheetURL)
+    fetch(sheetURL)
     .then(res => res.text())
     .then(csv => {
-      const lines = csv.trim().split("\n");
-      const headers = lines[0].split(",").map(h => h.trim());
+      const lines = csv.trim().split('\n');
+      const headers = lines[0].split(',').map(h => h.trim());
       const data = lines.slice(1).map(line => {
         const values = line.split(",").map(val => val.trim());
         return Object.fromEntries(values.map((v, i) => [headers[i], v]));
@@ -16,16 +14,25 @@ function fetchSheetData(callback) {
 }
 
 function renderGraph(data) {
+    const typeColors = {
+        "Board": "#8E24AA",
+        "Donor": "#3949AB",
+        "Partner": "#039BE5",
+        "Faculty/Staff": "#43A047",
+        "Student/Alumni": "#FB8C00",
+        "Parent": "#FDD835",
+        "Other": "#78909C",
+        "Central": "#E53935"
+    };
   const elements = [];
   const nodeIds = new Set();
 
-  // Add nodes
   data.forEach(row => {
     const id = row.ID || '';
     const label = row.Label || id;
     const size = parseInt(row.Size) || 60;
-    const color = row.Color || '#888';
-    const type = row.Type || 'Other';
+    const type = row.Type || "Other";
+    const color = row.Color || typeColors[type] || "#888";
 
     nodeIds.add(id);
 
@@ -36,63 +43,54 @@ function renderGraph(data) {
 
   // Add edges from all parents
   data.forEach(row => {
-    const parents = row.Parents || row.Parent || "";  // fallback to single parent if present
-    const parentIDs = parents.split(",").map(p => p.trim()).filter(p => p);
-    parentIDs.forEach(parent => {
-      if (nodeIds.has(parent)) {
-        elements.push({
-          data: {
-            id: `${parent}->${row.ID}`,
-            source: parent,
-            target: row.ID
-          }
-        });
+      if (row.Parent && nodeIds.has(row.Parent)) {
+          elements.push({
+              data: {
+                  id: `${row.Parent}->${row.ID}`,
+                  source: row.Parent,
+                  target: row.ID
+              }
+          });
       }
-    });
   });
 
-  // Detect root(s): nodes that are never a target
-  const targets = new Set(elements.filter(e => e.data?.target).map(e => e.data.target));
-  const roots = elements
-    .filter(e => e.data?.id && !targets.has(e.data.id))
-    .map(e => e.data.id);
+ 
 
   const cy = cytoscape({
-    container: document.getElementById("cy"),
+      container: document.getElementById('cy'),
     elements,
     style: [
       {
-        selector: "node",
+        selector: 'node',
         style: {
-          "shape": "ellipse",
-          "background-color": "data(color)",
-          "width": "data(size)",
-          "height": "data(size)",
-          "label": "data(label)",
-          "text-valign": "center",
-          "text-halign": "center",
-          "color": "#fff",
-          "font-size": "12px"
+            'shape': 'ellipse',
+            'background-color': 'data(color)',
+            'width': 'data(size)',
+            'height': 'data(size)',
+            'label': 'data(label)',
+            'text-valign': 'center',
+            'text-halign': 'center',
+            'color': '#fff',
+            'font-size': '12px'
         }
       },
       {
-        selector: "edge",
+        selector: 'edge',
         style: {
-          "width": 2,
-          "line-color": "#aaa",
-          "target-arrow-shape": "triangle",
-          "target-arrow-color": "#aaa",
-          "curve-style": "bezier"
+          'width': 2,
+          'line-color': '#aaa',
+          'target-arrow-shape': 'triangle',
+          'target-arrow-color': '#aaa',
+          'curve-style': 'bezier'
         }
       }
     ],
     layout: {
-      name: "breadthfirst",
-      directed: true,
-      spacingFactor: 1.5,
-      padding: 20,
-      avoidOverlap: true,
-      roots
+        name: 'cose',
+        animate: true,
+        padding: 30,
+        animate: 'end',
+        fit: true
     },
     autoungrabify: true,
     userPanningEnabled: false,
@@ -109,8 +107,9 @@ function renderGraph(data) {
 }
 
 function refreshGraph() {
-  document.getElementById("cy").innerHTML = "";
-  fetchSheetData(renderGraph);
+    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3eZlY581bQHv8_mK9eCmPwwJgrbTTXC9a1K7o5h_yN6jfWgI6ul_pWH-XPlItITXj1V1IXdJJL0k0/pub?output=csv";
+    document.getElementById('cy').innerHTML = '';
+    fetchSheetData(sheetURL, renderGraph);
 }
 
 window.onload = refreshGraph;
