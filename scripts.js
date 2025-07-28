@@ -13,7 +13,7 @@ function fetchSheetData(callback) {
     });
 }
 
-function renderGraph(data) {
+function renderGraph(data) { 
     const typeColors = {
         "Board": "#8E24AA",
         "Donor": "#3949AB",
