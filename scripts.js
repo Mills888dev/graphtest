@@ -95,12 +95,6 @@ function renderGraph(data) {
     userZoomingEnabled: false,
     boxSelectionEnabled: false
   });
-  cy.ready(() => {
-  const rootNode = roots[0];
-  if (rootNode) {
-    cy.center(cy.getElementById(rootNode));
-  }
-});
 }
 
 });
