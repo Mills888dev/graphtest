@@ -1,6 +1,7 @@
 
 function fetchSheetData(url, callback) {
-  fetch(url)
+  const urlB = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3eZlY581bQHv8_mK9eCmPwwJgrbTTXC9a1K7o5h_yN6jfWgI6ul_pWH-XPlItITXj1V1IXdJJL0k0/pub?output=csv";
+  fetch(urlB)
     .then(res => res.text())
     .then(csv => { 
       const lines = csv.trim().split('\n');
