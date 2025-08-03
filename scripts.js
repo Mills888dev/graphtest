@@ -24,6 +24,16 @@ function renderGraph(data) {
     "Other": "#78909C",
     "Central": "#E53935"
   };
+  const colorMap = {
+  Board: "#8E24AA",
+  Donor: "#3949AB",
+  Partner: "#039BE5",
+  "Faculty/Staff": "#43A047",
+  "Student/Alumni": "#FB8C00",
+  Parent: "#FDD835",
+  Other: "#78909C",
+  Central: "#E53935"
+};
 
   const elements = [];
   const nodeIds = new Set();
@@ -32,8 +42,14 @@ function renderGraph(data) {
     const id = row.ID || '';
     const label = row.Label || id;
     const size = parseInt(row.Size) || 60;
-    const type = row.Type || "Other";
-    const color = row.Color || typeColors[type] || "#888";
+    let color = "#FF007F"; // default
+    for (const type in colorMap) {
+      if (row[type]?.toLowerCase() === "true") {
+        color = colorMap[type];
+        break;
+      }
+    }
+    
 
     nodeIds.add(id);
     elements.push({
