@@ -63,7 +63,7 @@ function renderGraph(data) {
 
     nodeIds.add(id);
     elements.push({
-      data: { id, label, size, color, type }
+      data: { id, label, size, color }
     });
   });
 
