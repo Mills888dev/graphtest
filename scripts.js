@@ -22,7 +22,8 @@ function renderGraph(data) {
     "Student/Alumni": "#FB8C00",
     "Parent": "#FDD835",
     "Other": "#78909C",
-    "Central": "#E53935"
+    "Central": "#E53935",
+    "test": "#FFFFFF"
   };
   const colorMap = {
   Board: "#8E24AA",
