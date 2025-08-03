@@ -58,8 +58,6 @@ function renderGraph(data) {
       }
     color = color.hex();
     }
-
-✅ Include ch
     
 
     nodeIds.add(id);
