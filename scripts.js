@@ -42,13 +42,24 @@ function renderGraph(data) {
     const id = row.ID || '';
     const label = row.Label || id;
     const size = parseInt(row.Size) || 60;
+    // Collect all types marked TRUE in this row
+    const selectedTypes = Object.keys(colorMap).filter(type => row[type]?.toLowerCase() === "true");
+
+    // Determine color
     let color = "#FF007F"; // default
-    for (const type in colorMap) {
-      if (row[type]?.toLowerCase() === "true") {
-        color = colorMap[type];
-        break;
+    if (selectedTypes.length === 1) {
+      color = colorMap[selectedTypes[0]];
+    } else if (selectedTypes.length > 1) {
+      const colors = selectedTypes.map(t => colorMap[t]);
+      // Use chroma.js to blend all selected colors
+      color = chroma.mix(colors[0], colors[1], 0.5, 'lab');
+      for (let i = 2; i < colors.length; i++) {
+        color = chroma.mix(color, colors[i], 0.5, 'lab');
       }
+    color = color.hex();
     }
+
+✅ Include ch
     
 
     nodeIds.add(id);
