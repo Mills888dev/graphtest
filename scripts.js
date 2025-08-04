@@ -8,9 +8,10 @@ const colorMap = {
   "Student/Alumni": "#E04014",
   Parent: "#800080",
   Other: "#78909C",
-  Central: "#E53935",
-  PHInternship: "FFFFFF",
-  Internship: "FFD700"
+  Central: "#ffffff",
+  PHInternship: "#ffffff",
+  Internship: "FFD700",
+  Black: "#000000"
 };
 
 // Fetch and parse Google Sheet CSV(sheet needs to be published publicly go fo file>share>publish to web)
