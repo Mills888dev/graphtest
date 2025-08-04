@@ -30,30 +30,30 @@ function fetchSheetData(callback) {
 function getBlendedColor(row) {
   const types = Object.keys(colorMap).filter(type => row[type]?.toLowerCase() === "true");
 
-  // One color → solid hex
-  if (types.length === 1) return colorMap[types[0]];
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = 100;
+  canvas.height = 100;
 
-  // Multiple → gradient image
-  if (types.length > 1) {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = 100;
-    canvas.height = 100;
+  let gradient;
 
-    const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+  if (types.length >= 1) {
+    gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
     types.forEach((type, i) => {
-      const stop = i / (types.length - 1);
+      const stop = types.length === 1 ? 0.5 : i / (types.length - 1);
       gradient.addColorStop(stop, colorMap[type]);
     });
-
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Return base64 image
-    return canvas.toDataURL();
+  } else {
+    // default gray
+    gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+    gradient.addColorStop(0, "#888");
+    gradient.addColorStop(1, "#888");
   }
 
-  return "#888";
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  return canvas.toDataURL();
 }
 
 // 🌐 Build and render graph
