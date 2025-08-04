@@ -29,29 +29,13 @@ function fetchSheetData(callback) {
 // 🧠 Determine color from TRUE columns
 function getBlendedColor(row) {
   const types = Object.keys(colorMap).filter(type => row[type]?.toLowerCase() === "true");
-
-  // Single color case
   if (types.length === 1) return colorMap[types[0]];
-
-  // Multiple types - create canvas gradient
   if (types.length > 1) {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-
-    // Fixed size for consistency
-    canvas.width = 100;
-    canvas.height = 100;
-
-    const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-    types.forEach((type, i) => {
-      const stop = i / (types.length - 1);
-      gradient.addColorStop(stop, colorMap[type]);
-    });
-
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    return ctx.createPattern(canvas, 'repeat'); // Not usable directly in Cytoscape
+    let color = chroma.mix(colorMap[types[0]], colorMap[types[1]], 0.5, "lab");
+    for (let i = 2; i < types.length; i++) {
+      color = chroma.mix(color, colorMap[types[i]], 0.5, "lab");
+    }
+    return color.hex();
   }
   return "#888";
 }
