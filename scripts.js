@@ -1,5 +1,5 @@
 
-// 🎨 Mapping of types to base colors
+// Mapping of types to base colors add more if needed is CASE SENSITIVE
 const colorMap = {
   Board: "#0000ff",
   Donor: "#008000",
@@ -13,7 +13,7 @@ const colorMap = {
   Internship: "FFD700"
 };
 
-// 🔄 Fetch and parse Google Sheet CSV
+// Fetch and parse Google Sheet CSV(sheet needs to be published publicly go fo file>share>publish to web)
 function fetchSheetData(callback) {
   fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3eZlY581bQHv8_mK9eCmPwwJgrbTTXC9a1K7o5h_yN6jfWgI6ul_pWH-XPlItITXj1V1IXdJJL0k0/pub?output=csv")
     .then(res => res.text())
@@ -28,7 +28,7 @@ function fetchSheetData(callback) {
     });
 }
 
-// 🧠 Determine color from TRUE columns
+// Determine color from T/F columns
 function getBlendedColor(row) {
   const types = Object.keys(colorMap).filter(type => row[type]?.toLowerCase() === "true");
 
@@ -58,7 +58,7 @@ function getBlendedColor(row) {
   return canvas.toDataURL();
 }
 
-// 🌐 Build and render graph
+// Build and render graph
 function renderGraph(data) {
   const elements = [];
   const nodeIds = new Set();
@@ -102,7 +102,7 @@ function renderGraph(data) {
         selector: 'node',
         style: {
           'shape': 'ellipse',
-          'background-image': 'data(color)',  // now using base64 image or solid          
+          'background-image': 'data(color)',       
           'background-fit': 'cover',
           'background-clip': 'node',
           'width': 'data(size)',
@@ -137,7 +137,7 @@ function renderGraph(data) {
     boxSelectionEnabled: false
   });
 }
-
+// Refresh graph button(SLATTED FOR DELETION)
 function refreshGraph() {
   const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3eZlY581bQHv8_mK9eCmPwwJgrbTTXC9a1K7o5h_yN6jfWgI6ul_pWH-XPlItITXj1V1IXdJJL0k0/pub?output=csv";
   document.getElementById('cy').innerHTML = '';
