@@ -29,14 +29,30 @@ function fetchSheetData(callback) {
 // 🧠 Determine color from TRUE columns
 function getBlendedColor(row) {
   const types = Object.keys(colorMap).filter(type => row[type]?.toLowerCase() === "true");
+
+  // One color → solid hex
   if (types.length === 1) return colorMap[types[0]];
+
+  // Multiple → gradient image
   if (types.length > 1) {
-    let color = chroma.mix(colorMap[types[0]], colorMap[types[1]], 0.5, "lab");
-    for (let i = 2; i < types.length; i++) {
-      color = chroma.mix(color, colorMap[types[i]], 0.5, "lab");
-    }
-    return color.hex();
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = 100;
+    canvas.height = 100;
+
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+    types.forEach((type, i) => {
+      const stop = i / (types.length - 1);
+      gradient.addColorStop(stop, colorMap[type]);
+    });
+
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Return base64 image
+    return canvas.toDataURL();
   }
+
   return "#888";
 }
 
@@ -84,7 +100,9 @@ function renderGraph(data) {
         selector: 'node',
         style: {
           'shape': 'ellipse',
-          'background-color': 'data(color)',
+          'background-image': 'data(color)',  // now using base64 image or solid          
+          'background-fit': 'cover',
+          'background-clip': 'node',
           'width': 'data(size)',
           'height': 'data(size)',
           'label': 'data(label)',
