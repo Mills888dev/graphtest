@@ -22,7 +22,7 @@ function fetchSheetData(callback) {
         const values = line.split(",").map(val => val.trim());
         return Object.fromEntries(values.map((v, i) => [headers[i], v]));
       });
-      callback(data);
+      //callback(data);
     });
 }
 
