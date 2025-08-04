@@ -27,18 +27,16 @@ function fetchSheetData(callback) {
 }
 
 // 🧠 Determine color from TRUE columns
-function getBlendedColor(row) {
-  const types = Object.keys(colorMap).filter(type => row[type]?.toLowerCase() === "true");
-  if (types.length === 1) return colorMap[types[0]];
-  if (types.length > 1) {
-    let color = chroma.mix(colorMap[types[0]], colorMap[types[1]], 0.5, "lab");
-    for (let i = 2; i < types.length; i++) {
-      color = chroma.mix(color, colorMap[types[i]], 0.5, "lab");
-    }
-    return color.hex();
-  }
-  return "#888";
-}
+const colors = selectedTypes.map(t => colorMap[t]);
+const mainColor = colors[0];
+const borderColor = colors.length > 1 ? colors[1] : "#000";
+
+// Assign colors
+const nodeStyle = {
+  backgroundColor: mainColor,
+  borderWidth: colors.length > 1 ? 4 : 0,
+  borderColor: borderColor
+};
 
 // 🌐 Build and render graph
 function renderGraph(data) {
