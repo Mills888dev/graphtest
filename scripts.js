@@ -66,6 +66,9 @@ function renderGraph(data) {
 
   // Add nodes
   data.forEach(row => {
+    const id = row.ID?.trim();
+    if (!id) return;
+    
     const id = row.ID || '';
     const label = row.Label || id;
     const size = parseInt(row.Size) || 60;
