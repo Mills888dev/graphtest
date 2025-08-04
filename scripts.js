@@ -31,11 +31,11 @@ function getBlendedColor(row) {
   const types = Object.keys(colorMap).filter(type => row[type]?.toLowerCase() === "true");
   if (types.length === 1) return colorMap[types[0]];
   if (types.length > 1) {
-    let color = chroma.scale(colorMap[types[0]], colorMap[types[1]]);
+    let color = chroma.mix(colorMap[types[0]], colorMap[types[1]], 0.5, "lab");
     for (let i = 2; i < types.length; i++) {
-      color = chroma.scale(color, colorMap[types[i]]);
+      color = chroma.mix(color, colorMap[types[i]], 0.5, "lab");
     }
-    return color();
+    return color.hex();
   }
   return "#888";
 }
