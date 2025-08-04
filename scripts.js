@@ -10,7 +10,7 @@ const colorMap = {
   Other: "#78909C",
   Central: "#ffffff",
   PHInternship: "#ffffff",
-  Internship: "FFD700",
+  Internship: "#FFD700",
   Black: "#000000"
 };
 
