@@ -4,9 +4,9 @@ html, body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: #111;
+  background: #0f447f;
   font-family: sans-serif;
-  color: white;
+  color: black;
 }
 
 #cy {
