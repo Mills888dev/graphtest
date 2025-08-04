@@ -35,7 +35,7 @@ function getBlendedColor(row) {
     for (let i = 2; i < types.length; i++) {
       color = chroma.scale(color, colorMap[types[i]]);
     }
-    return color.hex();
+    return color();
   }
   return "#888";
 }
