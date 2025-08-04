@@ -1,14 +1,16 @@
 
 // 🎨 Mapping of types to base colors
 const colorMap = {
-  Board: "#8E24AA",
-  Donor: "#3949AB",
-  Partner: "#039BE5",
-  "Faculty/Staff": "#43A047",
-  "Student/Alumni": "#FB8C00",
-  Parent: "#FDD835",
+  Board: "#0000ff",
+  Donor: "#008000",
+  Partner: "#FFD700",
+  "Faculty/Staff": "#008080",
+  "Student/Alumni": "#E04014",
+  Parent: "#800080",
   Other: "#78909C",
-  Central: "#E53935"
+  Central: "#E53935",
+  PHInternship: "FFFFFF",
+  Internship: "FFD700"
 };
 
 // 🔄 Fetch and parse Google Sheet CSV
