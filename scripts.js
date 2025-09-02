@@ -66,20 +66,6 @@ function renderGraph(data) {
   const links = row.Links || "";
   const linkIDs = links.split(",").map(p => p.trim()).filter(p => p);
 
-
-  linkIDs.forEach(target => {
-    if (nodeIds.has(target) && target !== sourceID) {
-      elements.push({
-        data: {
-          id: `${sourceID}->${target}_link`,
-          source: sourceID,
-          target: target,
-          type: "link"
-        }
-      });
-    }
-  });
-
   // Add nodes
   data.forEach(row => {
     const id = row.ID?.trim();
@@ -107,6 +93,28 @@ function renderGraph(data) {
             id: `${parent}->${row.ID}`,
             source: parent,
             target: row.ID
+          }
+        });
+      }
+    });
+  });
+
+  // Add cross-links (Links column)
+  data.forEach(row => {
+    const sourceID = row.ID?.trim();
+    if (!sourceID) return;
+
+    const links = row.Links || "";
+    const linkIDs = links.split(",").map(p => p.trim()).filter(p => p);
+
+    linkIDs.forEach(target => {
+      if (nodeIds.has(target) && target !== sourceID) {
+        elements.push({
+          data: {
+            id: `${sourceID}->${target}_link`,
+            source: sourceID,
+            target: target,
+            type: "link"
           }
         });
       }
