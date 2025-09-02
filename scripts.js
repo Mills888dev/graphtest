@@ -162,6 +162,15 @@ data.forEach((row, idx) => {
           'target-arrow-color': '#aaa',
           'curve-style': 'bezier'
         }
+      },
+      {
+        selector: 'edge[type="link"]',
+        style: {
+          'width': 2,
+          'line-color': '#ff9800',
+          'line-style': 'dashed',
+          'target-arrow-shape': 'none'
+        }
       }
     ],
     layout: {
