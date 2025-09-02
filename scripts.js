@@ -83,15 +83,15 @@ data.forEach((row, idx) => {
   nodeIds.add(id);
 
   // Special case: Root node with image
-  if (id.toLowerCase() === "root") {
-    elements.push({
-      data: { id, label, size, image: "pathways-high-logo.avif" }
-    });
-  } else {
-    elements.push({
-      data: { id, label, size, color }
-    });
-  }
+if (id.toLowerCase() === "root") {
+  elements.push({
+    data: { id, label, size, image: "pathways-high-logo.avif" }
+  });
+} else {
+  elements.push({
+    data: { id, label, size, color }
+  });
+
 });
 
   // Add edges from all parent references
@@ -138,39 +138,40 @@ data.forEach((row, idx) => {
     elements,
     style: [
             {
-        selector: 'node[id="root"]',
-        style: {
-          'shape': 'ellipse',
-          'background-image': 'data(image)',   // use the image
-          'background-fit': 'cover',
-          'background-clip': 'node',
-          'border-color': '#000',
-          'border-width': 3,
-          'width': 'data(size)',
-          'height': 'data(size)',
-          'label': 'data(label)',
-          'text-valign': 'bottom',  // put label under the image
-          'color': '#000',
-          'font-size': '14px',
-          'font-weight': 'bold'
-        }
-      },
-      {
-        selector: 'node',
-        style: {
-          'shape': 'ellipse',
-          'background-image': 'data(color)',       
-          'background-fit': 'cover',
-          'background-clip': 'node',
-          'width': 'data(size)',
-          'height': 'data(size)',
-          'label': 'data(label)',
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'color': '#fff',
-          'font-size': '12px'
-        }
-      },
+  selector: 'node[image]',   // nodes that have an image
+  style: {
+    'shape': 'ellipse',
+    'background-image': 'data(image)',   // logo
+    'background-fit': 'cover',
+    'background-clip': 'node',
+    'border-color': '#000',
+    'border-width': 3,
+    'width': 'data(size)',
+    'height': 'data(size)',
+    'label': 'data(label)',
+    'text-valign': 'bottom',
+    'text-halign': 'center',
+    'color': '#000',
+    'font-size': '14px',
+    'font-weight': 'bold'
+  }
+},
+{
+  selector: 'node[color]',   // nodes that only have color
+  style: {
+    'shape': 'ellipse',
+    'background-image': 'data(color)',   // gradient dataURL
+    'background-fit': 'cover',
+    'background-clip': 'node',
+    'width': 'data(size)',
+    'height': 'data(size)',
+    'label': 'data(label)',
+    'text-valign': 'center',
+    'text-halign': 'center',
+    'color': '#fff',
+    'font-size': '12px'
+  }
+}
       {
         selector: 'edge',
         style: {
