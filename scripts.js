@@ -137,6 +137,24 @@ data.forEach((row, idx) => {
     container: document.getElementById('cy'),
     elements,
     style: [
+            {
+        selector: 'node[id="root"]',
+        style: {
+          'shape': 'ellipse',
+          'background-image': 'data(image)',   // use the image
+          'background-fit': 'cover',
+          'background-clip': 'node',
+          'border-color': '#000',
+          'border-width': 3,
+          'width': 'data(size)',
+          'height': 'data(size)',
+          'label': 'data(label)',
+          'text-valign': 'bottom',  // put label under the image
+          'color': '#000',
+          'font-size': '14px',
+          'font-weight': 'bold'
+        }
+      },
       {
         selector: 'node',
         style: {
@@ -161,24 +179,6 @@ data.forEach((row, idx) => {
           'target-arrow-shape': 'triangle',
           'target-arrow-color': '#aaa',
           'curve-style': 'bezier'
-        }
-      },
-      {
-        selector: 'node[id="root"]',
-        style: {
-          'shape': 'ellipse',
-          'background-image': 'data(image)',   // use the image
-          'background-fit': 'cover',
-          'background-clip': 'node',
-          'border-color': '#000',
-          'border-width': 3,
-          'width': 'data(size)',
-          'height': 'data(size)',
-          'label': 'data(label)',
-          'text-valign': 'bottom',  // put label under the image
-          'color': '#000',
-          'font-size': '14px',
-          'font-weight': 'bold'
         }
       },
       {
