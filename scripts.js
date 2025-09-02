@@ -92,7 +92,8 @@ if (id.toLowerCase() === "root") {
     data: { id, label, size, color }
   });
 
-  });
+  }
+});
 
   // Add edges from all parent references
   data.forEach(row => {
@@ -109,7 +110,7 @@ if (id.toLowerCase() === "root") {
         });
       }
     });
-  });
+
 
   // Add cross-links (Links column)
   data.forEach(row => {
