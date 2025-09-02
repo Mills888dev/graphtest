@@ -82,7 +82,6 @@ data.forEach((row, idx) => {
 
   nodeIds.add(id);
 
-  // Special case: Root node with image
 if (id.toLowerCase() === "root") {
   elements.push({
     data: { id, label, size, image: "pathways-high-logo.avif" }
@@ -91,8 +90,7 @@ if (id.toLowerCase() === "root") {
   elements.push({
     data: { id, label, size, color }
   });
-
-  }
+}
 });
 
   // Add edges from all parent references
