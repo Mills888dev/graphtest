@@ -171,7 +171,7 @@ if (id.toLowerCase() === "root") {
     'color': '#fff',
     'font-size': '12px'
   }
-}
+},
       {
         selector: 'edge',
         style: {
