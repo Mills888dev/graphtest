@@ -85,7 +85,7 @@ data.forEach((row, idx) => {
   // Special case: Root node with image
   if (id.toLowerCase() === "root") {
     elements.push({
-      data: { id, label, size, image: "Pathway's High logo.avif" }
+      data: { id, label, size, image: "pathways-high-logo.avif" }
     });
   } else {
     elements.push({
