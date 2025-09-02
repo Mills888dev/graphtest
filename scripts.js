@@ -164,6 +164,24 @@ data.forEach((row, idx) => {
         }
       },
       {
+        selector: 'node[id="root"]',
+        style: {
+          'shape': 'ellipse',
+          'background-image': 'data(image)',   // use the image
+          'background-fit': 'cover',
+          'background-clip': 'node',
+          'border-color': '#000',
+          'border-width': 3,
+          'width': 'data(size)',
+          'height': 'data(size)',
+          'label': 'data(label)',
+          'text-valign': 'bottom',  // put label under the image
+          'color': '#000',
+          'font-size': '14px',
+          'font-weight': 'bold'
+        }
+      },
+      {
         selector: 'edge[type="link"]',
         style: {
           'width': 2,
