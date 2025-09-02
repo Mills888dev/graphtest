@@ -63,8 +63,6 @@ function getBlendedColor(row) {
 function renderGraph(data) {
   const elements = [];
   const nodeIds = new Set();
-  const links = row.Links || "";
-  const linkIDs = links.split(",").map(p => p.trim()).filter(p => p);
 
 
 
