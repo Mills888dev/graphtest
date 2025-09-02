@@ -84,7 +84,7 @@ data.forEach((row, idx) => {
 
 if (id.toLowerCase() === "root") {
   elements.push({
-    data: { id, label, size, image: "pathways-high-logo.avif" }
+    data: { id, label, size, image: "pathways-high-logo.png" }
   });
 } else {
   elements.push({
