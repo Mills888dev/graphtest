@@ -204,11 +204,10 @@ if (id.toLowerCase() === "root") {
     boxSelectionEnabled: false
   });
 }
-//// Refresh graph button(SLATTED FOR DELETION)
-//function refreshGraph() {
-//  const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3eZlY581bQHv8_mK9eCmPwwJgrbTTXC9a1K7o5h_yN6jfWgI6ul_pWH-XPlItITXj1V1IXdJJL0k0/pub?output=csv";
-//  document.getElementById('cy').innerHTML = '';
-//  fetchSheetData(renderGraph);
-//}
+function refreshGraph() {
+  const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3eZlY581bQHv8_mK9eCmPwwJgrbTTXC9a1K7o5h_yN6jfWgI6ul_pWH-XPlItITXj1V1IXdJJL0k0/pub?output=csv";
+  document.getElementById('cy').innerHTML = '';
+  fetchSheetData(renderGraph);
+}
 
 window.onload = refreshGraph;
