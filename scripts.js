@@ -71,27 +71,30 @@ function renderGraph(data) {
   
 
   // Add nodes
-  data.forEach(row => {
-    const id = row.ID?.trim();
-    if (!id){ console.warn("Invalid or missing ID in row:", row); return;}
-    
-    const label = row.Label || id;
-    const size = parseInt(row.Size) || 60;
-    const color = getBlendedColor(row);
+data.forEach((row, idx) => {
+  const id = row.ID?.trim();
+  if (!id) {
+    console.warn("Invalid or missing ID in row:", row);
+    return; // skip invalid row
+  }
 
-    nodeIds.add(id);
+  const label = row.Label || id;
+  const size = parseInt(row.Size) || 60;
+  const color = getBlendedColor(row);
 
-    if (id.toLowerCase() === "root") {
-      elements.push({
-        data: { id, label, size, image: "Pathway's High logo.avif" }
-      });
-    } else {
-      elements.push({
-        data: { id, label, size, color }
-      });
-    }
-  });
+  nodeIds.add(id);
 
+  // Special case: Root node with image
+  if (id.toLowerCase() === "root") {
+    elements.push({
+      data: { id, label, size, image: "Pathway's High logo.avif" }
+    });
+  } else {
+    elements.push({
+      data: { id, label, size, color }
+    });
+  }
+});
 
   // Add edges from all parent references
   data.forEach(row => {
