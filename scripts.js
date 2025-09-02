@@ -108,6 +108,7 @@ if (id.toLowerCase() === "root") {
         });
       }
     });
+  });
 
 
   // Add cross-links (Links column)
