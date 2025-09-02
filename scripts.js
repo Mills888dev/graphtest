@@ -66,6 +66,10 @@ function renderGraph(data) {
   const links = row.Links || "";
   const linkIDs = links.split(",").map(p => p.trim()).filter(p => p);
 
+
+
+  
+
   // Add nodes
   data.forEach(row => {
     const id = row.ID?.trim();
@@ -77,10 +81,17 @@ function renderGraph(data) {
 
     nodeIds.add(id);
 
-    elements.push({
-      data: { id, label, size, color }
-    });
+    if (id.toLowerCase() === "root") {
+      elements.push({
+        data: { id, label, size, image: "Pathway's High logo.avif" }
+      });
+    } else {
+      elements.push({
+        data: { id, label, size, color }
+      });
+    }
   });
+
 
   // Add edges from all parent references
   data.forEach(row => {
