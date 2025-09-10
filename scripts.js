@@ -142,9 +142,9 @@ if (id.toLowerCase() === "root") {
   style: {
     'shape': 'ellipse',
     'background-image': 'data(image)',   // logo
-    'background-fit': 'cover',
-    'background-clip': 'node',
-    'border-color': '#000',
+   'background-fit': 'contain',  
+    'background-clip': 'none',    
+    'background-color': '#fff',
     'border-width': 3,
     'width': 'data(size)',
     'height': 'data(size)',
