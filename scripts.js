@@ -119,18 +119,24 @@ if (id.toLowerCase() === "root") {
     const links = row.Links || "";
     const linkIDs = links.split(",").map(p => p.trim()).filter(p => p);
 
-    linkIDs.forEach(target => {
-      if (nodeIds.has(target) && target !== sourceID) {
-        elements.push({
-          data: {
-            id: `${sourceID}->${target}_link`,
-            source: sourceID,
-            target: target,
-            type: "link"
-          }
-        });
+linkIDs.forEach(target => {
+  const cleanTarget = target.trim();
+  if (!cleanTarget) return;
+
+  if (nodeIds.has(cleanTarget) && cleanTarget !== sourceID) {
+    elements.push({
+      data: {
+        id: `${sourceID}->${cleanTarget}_link`,
+        source: sourceID,
+        target: cleanTarget,
+        type: "link"
       }
     });
+  } else {
+    console.warn(`Link target "${cleanTarget}" not found in nodeIds`);
+  }
+});
+
   });
 
   const cy = cytoscape({
