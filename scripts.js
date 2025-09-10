@@ -186,7 +186,7 @@ if (id.toLowerCase() === "root") {
         selector: 'edge[type="link"]',
         style: {
           'width': 2,
-          'line-color': '#ff9800',
+          'line-color': '#000000',
           'line-style': 'dashed',
           'target-arrow-shape': 'none'
         }
