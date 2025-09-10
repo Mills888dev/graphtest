@@ -204,10 +204,34 @@ if (id.toLowerCase() === "root") {
     boxSelectionEnabled: false
   });
 }
+function renderLegend() {
+  const legend = document.getElementById("legend");
+  legend.innerHTML = ""; // clear if re-rendered
+
+  Object.entries(colorMap).forEach(([name, color]) => {
+    const item = document.createElement("div");
+    item.className = "legend-item";
+
+    const swatch = document.createElement("div");
+    swatch.className = "legend-color";
+    swatch.style.backgroundColor = color;
+
+    const label = document.createElement("span");
+    label.textContent = name;
+
+    item.appendChild(swatch);
+    item.appendChild(label);
+    legend.appendChild(item);
+  });
+}
 function refreshGraph() {
   const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3eZlY581bQHv8_mK9eCmPwwJgrbTTXC9a1K7o5h_yN6jfWgI6ul_pWH-XPlItITXj1V1IXdJJL0k0/pub?output=csv";
   document.getElementById('cy').innerHTML = '';
   fetchSheetData(renderGraph);
 }
 
-window.onload = refreshGraph;
+window.onload = () => {
+  refreshGraph();
+  renderLegend();
+};
+
