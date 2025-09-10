@@ -151,8 +151,8 @@ if (id.toLowerCase() === "root") {
     'label': 'data(label)',
     'text-valign': 'bottom',
     'text-halign': 'center',
-    'color': '#000',
-    'font-size': '14px',
+    'color': '#0f447f',
+    'font-size': '0px',
     'font-weight': 'bold'
   }
 },
