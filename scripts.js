@@ -144,7 +144,7 @@ if (id.toLowerCase() === "root") {
     'background-image': 'data(image)',   // logo
    'background-fit': 'contain',  
     'background-clip': 'none',    
-    'background-color': '#fff',
+    'background-color': '#000000',
     'border-width': 3,
     'width': 'data(size)',
     'height': 'data(size)',
