@@ -120,7 +120,9 @@ if (id.toLowerCase() === "root") {
     const linkIDs = links.split(",").map(p => p.trim()).filter(p => p);
 
 linkIDs.forEach(target => {
-  const cleanTarget = target.trim();
+  let cleanTarget = target.trim();
+  cleanTarget = cleanTarget.replace(/^"(.*)"$/, "$1"); // remove surrounding quotes
+
   if (!cleanTarget) return;
 
   if (nodeIds.has(cleanTarget) && cleanTarget !== sourceID) {
@@ -136,6 +138,7 @@ linkIDs.forEach(target => {
     console.warn(`Link target "${cleanTarget}" not found in nodeIds`);
   }
 });
+
 
   });
 
