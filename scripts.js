@@ -117,9 +117,8 @@ if (id.toLowerCase() === "root") {
     if (!sourceID) return;
 
     const links = row.Links || "";
-    const linkIDs = links.split(",").map(p => p.trim()).filter(p => p);
+    const linkIDs = links.split(";").map(p => p.trim()).filter(p => p);
 linkIDs.forEach(target => {
-  console.warn(`Debug output: "${target}" found in nodeIds`);
   let cleanTarget = target.trim();
   cleanTarget = cleanTarget.replace("\"", ""); // remove surrounding quotes
 
