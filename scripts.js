@@ -118,7 +118,7 @@ if (id.toLowerCase() === "root") {
 
     const links = row.Links || "";
     const linkIDs = links.split(",").map(p => p.trim()).filter(p => p);
-    
+    console.warn("Debug output: " + linkIDs);
 linkIDs.forEach(target => {
   let cleanTarget = target.trim();
   cleanTarget = cleanTarget.replace("\"", ""); // remove surrounding quotes
