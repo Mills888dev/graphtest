@@ -121,8 +121,8 @@ if (id.toLowerCase() === "root") {
     
 linkIDs.forEach(target => {
   let cleanTarget = target.trim();
-  cleanTarget = cleanTarget.replace(/^"(.*)"$/, "$1"); // remove surrounding quotes
-  cleanTarget = cleanTarget.replace(/^"(.*)"$/, "$1"); 
+  cleanTarget = cleanTarget.replace(/"/g, "$1"); // remove surrounding quotes
+
   if (!cleanTarget) return;
 
   if (nodeIds.has(cleanTarget) && cleanTarget !== sourceID) {
