@@ -121,7 +121,7 @@ if (id.toLowerCase() === "root") {
     
 linkIDs.forEach(target => {
   let cleanTarget = target.trim();
-  cleanTarget = cleanTarget.replace(/"/g, "$""); // remove surrounding quotes
+  cleanTarget = cleanTarget.replace(""", ""); // remove surrounding quotes
 
   if (!cleanTarget) return;
 
